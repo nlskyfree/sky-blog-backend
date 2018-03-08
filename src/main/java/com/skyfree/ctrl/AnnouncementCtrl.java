@@ -11,13 +11,13 @@ import com.skyfree.entity.Announcement;
 @RestController
 @RequestMapping("/announcement")
 public class AnnouncementCtrl {
-    @RequestMapping("/")
+    @RequestMapping
     public List<Announcement> getArticles() {
         List<Announcement> announcements = new ArrayList<>();
         Announcement announcement1 = new Announcement();
         announcement1.setContent("别他妈聊前端了");
         Announcement announcement2 = new Announcement();
-        announcement2.setContent("别他妈聊前端了");
+        announcement2.setContent("快他妈聊后端");
         announcements.add(announcement1);
         announcements.add(announcement2);
         return announcements;

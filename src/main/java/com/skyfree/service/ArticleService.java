@@ -3,21 +3,42 @@ package com.skyfree.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.skyfree.common.BaseService;
 import com.skyfree.dto.ArticleRequest;
 import com.skyfree.entity.Article;
+import com.skyfree.entity.Category;
+import com.skyfree.entity.Tag;
 
 @Service
-public class ArticleService {
+public class ArticleService extends BaseService<Article> {
     
     @Autowired
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    private CategoryService categoryService;
+    
+    @Autowired
+    private TagService tagService;
 
     public List<Article> getArticles(ArticleRequest request) {
-        String sql = "select * from article";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Article>());
+        List<Article> articles = this.findAll();
+        for(Article article : articles) {
+            Integer id = article.getId();
+            List<Category> categories = categoryService.getCategoriesByArticleId(id);
+            List<Tag> tags = tagService.getTagsByArticleId(id);
+            article.setCategories(categories);
+            article.setTags(tags);
+        }
+        
+        return articles;
+    }
+
+    public Article getArticleById(Integer id) {
+        Article article = this.findById(id);
+        List<Category> categories = categoryService.getCategoriesByArticleId(id);
+        List<Tag> tags = tagService.getTagsByArticleId(id);
+        article.setCategories(categories);
+        article.setTags(tags);
+        return article;
     }
 }

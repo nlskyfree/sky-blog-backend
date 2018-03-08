@@ -2,10 +2,14 @@ package com.skyfree.entity;
 
 import java.util.List;
 
+import com.skyfree.common.PrimaryKey;
+
 public class Article {
-    private String id;
+    @PrimaryKey
+    private Integer id;
     private String title;
     private String description;
+    private String content;
     private String createAt;
     private String thumb;
     private String views;
@@ -13,10 +17,10 @@ public class Article {
     private String likes;
     private List<Category> categories;
     private List<Tag> tags;
-    public String getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getTitle() {
@@ -30,6 +34,12 @@ public class Article {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String getContent() {
+        return content;
+    }
+    public void setContent(String content) {
+        this.content = content;
     }
     public String getCreateAt() {
         return createAt;

@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @Configuration
@@ -19,10 +20,16 @@ public class DBConfig {
     public DataSource mysqlDataSource() throws Exception {
         return DataSourceBuilder.create().build();
     }
-
-    //MySQL JdbcTemplate
+    
+    // JdbcTemplate
     @Bean(name = "sqlLiteJdbcTemplate")
-    public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate(@Qualifier("sqlLiteDataSource") DataSource sqlLiteDataSource) {
-        return new NamedParameterJdbcTemplate(sqlLiteDataSource);
+    public JdbcTemplate getJdbcTemplate(@Qualifier("sqlLiteDataSource") DataSource sqlLiteDataSource) {
+        return new JdbcTemplate(sqlLiteDataSource);
+    }
+
+    // NamedParameterJdbcTemplate
+    @Bean(name = "sqlLiteNamedJdbcTemplate")
+    public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate(@Qualifier("sqlLiteJdbcTemplate") JdbcTemplate jdbcTemplate) {
+        return new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 }

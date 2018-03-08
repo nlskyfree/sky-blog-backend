@@ -15,8 +15,8 @@ public class TagCtrl {
     @Autowired
     private TagService tagService;
     
-    @RequestMapping("/")
+    @RequestMapping
     public List<Tag> getTags() {
-        return tagService.getTags();
+        return tagService.findAll();
     }
 }

@@ -6,17 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skyfree.entity.Github;
-import com.skyfree.service.GithubService;
+import com.skyfree.entity.Category;
+import com.skyfree.service.CategoryService;
 
 @RestController
-@RequestMapping("/github")
-public class GithubCtrl {
-    @Autowired  
-    private GithubService githubService;
+@RequestMapping("/category")
+public class CategoryCtrl {
+    
+    @Autowired
+    private CategoryService categoryService;
     
     @RequestMapping
-    public List<Github> getGithubs() {
-        return githubService.findAll();
+    public List<Category> getCategories() {
+        return categoryService.findAll();
     }
 }

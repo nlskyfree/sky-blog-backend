@@ -1,6 +1,10 @@
 package com.skyfree.entity;
 
+import com.skyfree.common.PrimaryKey;
+
 public class Github {
+    @PrimaryKey
+    private Integer id;
     private String htmlUrl;
     private String name;
     private String fork;
@@ -12,6 +16,12 @@ public class Github {
     private String stargazersCount;
     private String createdAt;
     private String language;
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getHtmlUrl() {
         return htmlUrl;
     }
